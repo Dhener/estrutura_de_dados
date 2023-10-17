@@ -38,20 +38,17 @@ class Fila {
         // Método que inseri um elemento na fila
         //Complexidade O(1)
 
-        if($this->topo === $this->base){
+        if($this->topo < $this->base){
             // Condição para verificar se a fila está vazia
+            $this->topo = 0;
+            $this->base = 0;
             return "Underflow!\n";
         }
 
         //remove elemento da fila
         $this->elementos[$this->base] = null;
 
-
         $this->quant_elementos = $this->quant_elementos-1;
-
-        if ($this->quant_elementos < 0){
-            $this->quant_elementos = 0;
-        }
 
         $this->base = ($this->base + 1) % NUM_MAX_ELEMENTOS;
     }

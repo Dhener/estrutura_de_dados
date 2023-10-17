@@ -94,5 +94,47 @@ class Ordenacao {
         }
         return $this->elementos;
     }
+
+    //Método usado no quicksort
+    function particao($inicio,$final){
+
+        //barra que separa os elementos menores e maiores que o pivô
+        $bastao_amarelo = $inicio;
+
+        //armazena sempre o último elemento de cada lista da vez que está sendo ordenada
+        $pivo = $this->elementos[$final];
+
+        //O "bastao_roxo é a variável que vai percorrendo todos os elementos da lista
+        for($bastao_roxo = $inicio; $bastao_roxo < $final; $bastao_roxo++){
+
+            if($this->elementos[$bastao_roxo] <= $pivo){
+                /*
+                    Se a condição for satisfeita é porque encontramos um elemento menor que o pivô e 
+                    ele será colocado "antes do bastao_amarelo"
+                */
+                $aux = $this->elementos[$bastao_roxo];
+                $this->elementos[$bastao_roxo] = $this->elementos[$bastao_amarelo];
+                $this->elementos[$bastao_amarelo] = $aux;
+                $bastao_amarelo++;
+            }
+        }
+
+        //coloca o pivô entre os elementos menores e maiores do que ele
+        $aux = $this->elementos[$bastao_amarelo];
+        $this->elementos[$bastao_amarelo] = $this->elementos[$final];
+        $this->elementos[$final] = $aux;
+        return $bastao_amarelo;
+    }
+
+    function quick($inicio,$final){
+        //complexidade melhor e médio caso: O(n.log(n))
+        //complexidade no pior caso: O(n^2)
+        
+        if($inicio < $final){
+            $bastao_amarelo = $this->particao($inicio,$final);
+            $this->quick(0,$bastao_amarelo-1);
+            $this->quick($bastao_amarelo+1,$final);
+        }
+    }
 }
 ?>
